@@ -26,7 +26,7 @@ resource "aws_kms_key" "tfstate" {
 EOF
   # Let's use the maximum delete window in case we need to decrypt something after the key deletion is ordered
   deletion_window_in_days = 30
-  tags {
+  tags = {
     Component          = "ops"
     ManagedByTerraform = "yes"
   }
@@ -56,7 +56,7 @@ resource "aws_s3_bucket" "tfstate" {
       }
     }
   }
-  tags {
+  tags = {
     Component          = "ops"
     ManagedByTerraform = "yes"
   }

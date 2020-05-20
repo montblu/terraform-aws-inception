@@ -12,7 +12,7 @@ resource "aws_dynamodb_table" "tfstatelock" {
     type = "S"
   }
 
-  tags {
+  tags = {
     Component          = "ops"
     ManagedByTerraform = "yes"
   }
