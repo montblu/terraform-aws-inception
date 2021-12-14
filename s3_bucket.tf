@@ -1,10 +1,19 @@
+module "s3_bucket" {
+  source  = "terraform-aws-modules/s3-bucket/aws"
+  version = "2.11.1"
 
-# S3 bucket that keeps the terraform state
-resource "aws_s3_bucket" "tfstate" {
   bucket = "${var.my_inception_organization}-${var.my_inception_environment}-${var.my_inception_domain}-${var.my_inception_project}-tfstate"
-  versioning {
-    enabled = true
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+  force_destroy           = var.my_inception_disable_force_destroy
+
+  versioning = {
+    enabled = var.enable_versioning
   }
+
   server_side_encryption_configuration {
     rule {
       apply_server_side_encryption_by_default {
@@ -14,6 +23,7 @@ resource "aws_s3_bucket" "tfstate" {
       }
     }
   }
+
   tags = {
     Component          = "ops"
     ManagedByTerraform = "yes"
