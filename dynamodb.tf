@@ -9,10 +9,12 @@ module "dynamodb_table" {
   write_capacity = 1
   hash_key       = "LockID"
 
-  attribute {
-    name = "LockID"
-    type = "S"
-  }
+  attributes = [
+    {
+      name = "LockID"
+      type = "S"
+    }
+  ]
 
   tags = {
     Component          = "ops"
