@@ -6,15 +6,14 @@ resource "aws_dynamodb_table" "tfstatelock" {
   write_capacity = 1
   hash_key       = "LockID"
 
-  attributes = [
-    {
+  attribute {
       name = "LockID"
       type = "S"
-    }
-  ]
+  }
 
   tags = {
     Component          = "ops"
     ManagedByTerraform = "yes"
   }
 }
+
