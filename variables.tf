@@ -27,3 +27,11 @@ variable "backend_configs_location" {
   type    = string
   default = "../configs/backends"
 }
+
+variable "provider_profile" {
+  type = string
+}
+
+variable "provider_region" {
+  type = string
+}
