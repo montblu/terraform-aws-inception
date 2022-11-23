@@ -28,10 +28,6 @@ resource "aws_kms_key" "tfstate" {
 EOF
   # Let's use the maximum delete window in case we need to decrypt something after the key deletion is ordered
   deletion_window_in_days = 30
-  tags = {
-    Component          = "ops"
-    ManagedByTerraform = "yes"
-  }
 }
 
 # Defines the easy access name of the S3 bucket encryption key

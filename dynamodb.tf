@@ -10,10 +10,4 @@ resource "aws_dynamodb_table" "tfstatelock" {
       name = "LockID"
       type = "S"
   }
-
-  tags = {
-    Component          = "ops"
-    ManagedByTerraform = "yes"
-  }
 }
-

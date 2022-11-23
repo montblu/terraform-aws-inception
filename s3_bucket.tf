@@ -23,9 +23,4 @@ module "s3_bucket" {
       }
     }
   }
-
-  tags = {
-    Component          = "ops"
-    ManagedByTerraform = "yes"
-  }
 }
