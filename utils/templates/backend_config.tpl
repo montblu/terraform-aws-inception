@@ -1,0 +1,5 @@
+bucket = "${prefix}-site-${site}-tfstate"
+key = "${environment}-${site}.tfstate"
+region = "${region}"
+profile = "${profile}"
+dynamodb_table = "${prefix}_site_${site}_tfstatelock"
