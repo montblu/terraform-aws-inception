@@ -11,8 +11,5 @@ resource "aws_dynamodb_table" "tfstatelock" {
     type = "S"
   }
 
-  tags = {
-    Component          = "ops"
-    ManagedByTerraform = "yes"
-  }
+  tags = var.my_inception_tags
 }
