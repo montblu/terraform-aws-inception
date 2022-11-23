@@ -22,3 +22,8 @@ variable "generate_backend_configs" {
   type    = bool
   default = true
 }
+
+variable "backend_configs_location" {
+  type    = string
+  default = "../configs/backends/"
+}
