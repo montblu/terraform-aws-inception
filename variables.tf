@@ -25,5 +25,5 @@ variable "generate_backend_configs" {
 
 variable "backend_configs_location" {
   type    = string
-  default = "../configs/backends/"
+  default = "../configs/backends"
 }
