@@ -17,3 +17,8 @@ variable "my_inception_disable_force_destroy" {
   type    = bool
   default = false
 }
+
+variable "generate_backend_configs" {
+  type    = bool
+  default = true
+}
