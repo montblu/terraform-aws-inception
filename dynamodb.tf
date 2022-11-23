@@ -7,7 +7,9 @@ resource "aws_dynamodb_table" "tfstatelock" {
   hash_key       = "LockID"
 
   attribute {
-      name = "LockID"
-      type = "S"
+    name = "LockID"
+    type = "S"
   }
+
+  tags = var.my_inception_tags
 }

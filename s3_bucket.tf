@@ -23,4 +23,6 @@ module "s3_bucket" {
       }
     }
   }
+
+  tags = var.my_inception_tags
 }

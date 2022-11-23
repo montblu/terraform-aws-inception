@@ -28,10 +28,14 @@ resource "aws_kms_key" "tfstate" {
 EOF
   # Let's use the maximum delete window in case we need to decrypt something after the key deletion is ordered
   deletion_window_in_days = 30
+
+  tags = var.my_inception_tags
 }
 
 # Defines the easy access name of the S3 bucket encryption key
 resource "aws_kms_alias" "tfstate" {
   name          = "alias/${var.my_inception_organization}_${var.my_inception_environment}_${var.my_inception_domain}_${var.my_inception_project}"
   target_key_id = aws_kms_key.tfstate.key_id
+
+  tags = var.my_inception_tags
 }
