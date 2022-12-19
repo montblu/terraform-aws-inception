@@ -8,7 +8,7 @@ locals {
 # KMS Key
 ################################################################################
 
-resource "aws_kms_key" "tfstate" {
+resource "aws_kms_key" "main" {
   description = "Used to encrypt tfstate in the s3_bucket ${var.my_inception_organization}-${var.my_inception_environment}-${var.my_inception_domain}-${var.my_inception_project}"
   # Allow IAM to manage access to this key
   # Recall that "To allow access to a KMS CMK [Customer Managed Key], you must use the key policy,
@@ -39,7 +39,7 @@ EOF
 }
 
 # Defines the easy access name of the S3 bucket encryption key
-resource "aws_kms_alias" "tfstate" {
+resource "aws_kms_alias" "main" {
   name          = "alias/${var.my_inception_organization}_${var.my_inception_environment}_${var.my_inception_domain}_${var.my_inception_project}"
   target_key_id = aws_kms_key.tfstate.key_id
 
@@ -50,7 +50,7 @@ resource "aws_kms_alias" "tfstate" {
 # S3 Bucket
 ################################################################################
 
-module "s3_bucket" {
+module "s3" {
   source  = "terraform-aws-modules/s3-bucket/aws"
   version = "3.6.0"
 
@@ -83,7 +83,7 @@ module "s3_bucket" {
 # DynamoDB Table
 ################################################################################
 
-resource "aws_dynamodb_table" "tfstatelock" {
+resource "aws_dynamodb_table" "main" {
   name           = "${var.my_inception_organization}_${var.my_inception_environment}_${var.my_inception_domain}_${var.my_inception_project}_tfstatelock"
   read_capacity  = 1
   write_capacity = 1
@@ -101,7 +101,7 @@ resource "aws_dynamodb_table" "tfstatelock" {
 # Generate Terraform Backend config file
 ################################################################################
 
-resource "local_file" "backend_configs" {
+resource "local_file" "main" {
   for_each = var.generate_backend_configs ? 1 : 0
 
   content = templatefile("${path.module}/utils/templates/backend_config.tpl", {
