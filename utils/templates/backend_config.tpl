@@ -1,5 +1,5 @@
-bucket = "${prefix}-site-${site}-tfstate"
-key = "${environment}-${site}.tfstate"
+bucket = "${resource_name}"
+key = "${resource_name}.tfstate"
 region = "${region}"
 profile = "${profile}"
-dynamodb_table = "${prefix}_site_${site}_tfstatelock"
+dynamodb_table = "${resource_name}"
