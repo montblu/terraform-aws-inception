@@ -58,7 +58,7 @@ module "s3" {
   source  = "terraform-aws-modules/s3-bucket/aws"
   version = "3.6.0"
 
-  bucket = "${var.my_inception_organization}-${var.my_inception_environment}-${var.my_inception_domain}-${var.my_inception_project}-tfstate"
+  bucket = local.resource_name
 
   block_public_acls       = true
   block_public_policy     = true
