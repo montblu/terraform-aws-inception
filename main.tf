@@ -73,8 +73,7 @@ module "s3" {
   server_side_encryption_configuration = {
     rule = {
       apply_server_side_encryption_by_default = {
-        # FIXME use count index
-        kms_master_key_id = aws_kms_key.tfstate.arn
+        kms_master_key_id = aws_kms_key.main.arn
         sse_algorithm     = "aws:kms"
       }
     }
