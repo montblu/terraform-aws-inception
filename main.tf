@@ -81,6 +81,10 @@ module "s3" {
   }
 
   tags = var.my_inception_tags
+
+  depends_on = [
+    aws_kms_key.main
+  ]
 }
 
 ################################################################################
