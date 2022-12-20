@@ -35,7 +35,7 @@ EOF
   # Let's use the maximum delete window in case we need to decrypt something after the key deletion is ordered
   deletion_window_in_days = 30
 
-  tags = var.my_inception_tags
+  tags = var.tags
 }
 
 # Defines the easy access name of the S3 bucket encryption key
@@ -43,7 +43,7 @@ resource "aws_kms_alias" "main" {
   name          = "alias/${local.resource_name}"
   target_key_id = aws_kms_key.main.key_id
 
-  tags = var.my_inception_tags
+  tags = var.tags
 
   depends_on = [
     aws_kms_key.main
@@ -79,7 +79,7 @@ module "s3" {
     }
   }
 
-  tags = var.my_inception_tags
+  tags = var.tags
 
   depends_on = [
     aws_kms_key.main
@@ -101,7 +101,7 @@ resource "aws_dynamodb_table" "main" {
     type = "S"
   }
 
-  tags = var.my_inception_tags
+  tags = var.tags
 }
 
 ################################################################################
