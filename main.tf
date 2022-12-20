@@ -43,8 +43,6 @@ resource "aws_kms_alias" "main" {
   name          = "alias/${local.resource_name}"
   target_key_id = aws_kms_key.main.key_id
 
-  tags = var.tags
-
   depends_on = [
     aws_kms_key.main
   ]
