@@ -109,7 +109,7 @@ resource "aws_dynamodb_table" "main" {
 ################################################################################
 
 resource "local_file" "main" {
-  for_each = var.generate_backend_configs ? 1 : 0
+  for_each = var.generate_backend_config_file ? 1 : 0
 
   content = templatefile("${path.module}/utils/templates/backend_config.tpl", {
     profile       = var.profile,
