@@ -44,6 +44,10 @@ resource "aws_kms_alias" "main" {
   target_key_id = aws_kms_key.main.key_id
 
   tags = var.my_inception_tags
+
+  depends_on = [
+    aws_kms_key.main
+  ]
 }
 
 ################################################################################
