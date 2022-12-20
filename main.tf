@@ -9,7 +9,7 @@ locals {
 ################################################################################
 
 resource "aws_kms_key" "main" {
-  description = "Used to encrypt tfstate in the s3_bucket ${var.my_inception_organization}-${var.my_inception_environment}-${var.my_inception_domain}-${var.my_inception_project}"
+  description = "Used to encrypt Terraform state in the S3 Bucket: ${local.resource_name}"
   # Allow IAM to manage access to this key
   # Recall that "To allow access to a KMS CMK [Customer Managed Key], you must use the key policy,
   # either alone or in combination with IAM polices or grants.
