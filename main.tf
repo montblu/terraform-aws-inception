@@ -40,8 +40,8 @@ EOF
 
 # Defines the easy access name of the S3 bucket encryption key
 resource "aws_kms_alias" "main" {
-  name          = "alias/${var.my_inception_organization}_${var.my_inception_environment}_${var.my_inception_domain}_${var.my_inception_project}"
-  target_key_id = aws_kms_key.tfstate.key_id
+  name          = "alias/${local.resource_name}"
+  target_key_id = aws_kms_key.main.key_id
 
   tags = var.my_inception_tags
 }
