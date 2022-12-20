@@ -67,7 +67,7 @@ module "s3" {
   force_destroy           = var.s3_disable_force_destroy
 
   versioning = {
-    enabled = var.my_inception_enable_versioning
+    enabled = var.s3_enable_versioning
   }
 
   server_side_encryption_configuration = {
