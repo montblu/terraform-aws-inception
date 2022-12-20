@@ -64,7 +64,7 @@ module "s3" {
   block_public_policy     = true
   ignore_public_acls      = true
   restrict_public_buckets = true
-  force_destroy           = var.my_inception_disable_force_destroy
+  force_destroy           = var.s3_disable_force_destroy
 
   versioning = {
     enabled = var.my_inception_enable_versioning
