@@ -118,6 +118,6 @@ resource "local_file" "main" {
     }
   )
 
-  filename        = "${var.backend_configs_location}/${var.resource_prefix}-${each.key}.tfvars"
+  filename        = "${var.backend_configs_location}/${var.name_prefix}-${var.name}.tfvars"
   file_permission = "0664"
 }
