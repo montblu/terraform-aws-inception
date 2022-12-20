@@ -120,4 +120,9 @@ resource "local_file" "main" {
 
   filename        = "${var.backend_configs_location}/${var.name_prefix}-${var.name}.tfvars"
   file_permission = "0664"
+
+  depends_on = [
+    aws_dynamodb_table.main,
+    module.s3
+  ]
 }
