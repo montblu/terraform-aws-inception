@@ -91,7 +91,7 @@ module "s3" {
 ################################################################################
 
 resource "aws_dynamodb_table" "main" {
-  name           = "${var.my_inception_organization}_${var.my_inception_environment}_${var.my_inception_domain}_${var.my_inception_project}_tfstatelock"
+  name           = local.resource_name
   read_capacity  = 1
   write_capacity = 1
   hash_key       = "LockID"
