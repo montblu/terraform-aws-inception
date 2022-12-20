@@ -1,7 +1,7 @@
 data "aws_caller_identity" "current" {}
 
 locals {
-  resource_prefix = "${var.my_inception_organization}-${var.my_inception_environment}"
+  resource_name = "${var.name_prefix}-site-${var.name}"
 }
 
 ################################################################################
