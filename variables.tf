@@ -1,37 +1,49 @@
-variable "my_inception_organization" { type = string }
-variable "my_inception_environment" { type = string }
-variable "my_inception_domain" { type = string }
-variable "my_inception_project" { type = string }
-
-variable "my_inception_tags" {
-  type    = map(any)
-  default = {}
+variable "name" {
+  type        = string
+  description = "Name of the site."
 }
 
-variable "my_inception_enable_versioning" {
-  type    = bool
-  default = true
+variable "name_prefix" {
+  type        = string
+  description = "Prefix to add to all resources."
 }
 
-variable "my_inception_disable_force_destroy" {
-  type    = bool
-  default = false
+variable "tags" {
+  type        = map(any)
+  default     = {}
+  description = "A map of tags to add to all resources."
 }
 
-variable "generate_backend_configs" {
-  type    = bool
-  default = true
+variable "s3_enable_versioning" {
+  type        = bool
+  default     = true
+  description = "Controls whether versioning is enabled in the S3 bucket or not."
+}
+
+variable "s3_disable_force_destroy" {
+  type        = bool
+  default     = false
+  description = "Controls whether force destroy is disable in the S3 bucket or enabled."
+}
+
+variable "generate_backend_config_file" {
+  type        = bool
+  default     = true
+  description = "Controls whether the backend config file is created or not."
 }
 
 variable "backend_configs_location" {
-  type    = string
-  default = "../configs/backends"
+  type        = string
+  default     = "../configs/backends"
+  description = "Controls where the backend config file is created."
 }
 
-variable "provider_profile" {
-  type = string
+variable "profile" {
+  type        = string
+  description = "Profile that is going to be placed inside the generated backend config file."
 }
 
-variable "provider_region" {
-  type = string
+variable "region" {
+  type        = string
+  description = "Region that is going to be placed inside the generated backend config file."
 }
