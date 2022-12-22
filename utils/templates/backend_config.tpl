@@ -1,0 +1,5 @@
+bucket = "${resource_name}"
+key = "${resource_name}.tfstate"
+region = "${region}"
+profile = "${profile}"
+dynamodb_table = "${resource_name}"
