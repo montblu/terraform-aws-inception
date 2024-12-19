@@ -3,11 +3,11 @@ data "aws_caller_identity" "current" {}
 locals {
   aws_region_map = {
     "af-south-1"     = "afs1"
-    "ap-northeast-1" = "apn1"
-    "ap-northeast-2" = "apn2"
+    "ap-northeast-1" = "apne1"
+    "ap-northeast-2" = "apne2"
     "ap-south-1"     = "aps1"
-    "ap-southeast-1" = "ape1"
-    "ap-southeast-2" = "ape2"
+    "ap-southeast-1" = "apse1"
+    "ap-southeast-2" = "apse2"
     "ca-central-1"   = "cac1"
     "eu-central-1"   = "euc1"
     "eu-west-1"      = "euw1"
