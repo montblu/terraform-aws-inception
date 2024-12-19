@@ -1,51 +1,26 @@
 data "aws_caller_identity" "current" {}
 
 locals {
-  resource_name = "${var.name_prefix}-site-${var.name}"
-}
-
-################################################################################
-# KMS Key
-################################################################################
-
-resource "aws_kms_key" "main" {
-  description = "Used to encrypt Terraform state in the S3 Bucket: ${local.resource_name}"
-  # Allow IAM to manage access to this key
-  # Recall that "To allow access to a KMS CMK [Customer Managed Key], you must use the key policy,
-  # either alone or in combination with IAM polices or grants.
-  # IAM policies by themselves are not sufficient to allow access to a CMK"
-  # Reference: https://docs.aws.amazon.com/kms/latest/developerguide/control-access-overview.html#managing-access
-  # So for this key we define a resource policy that allows IAM to manage the acess:
-  # https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html#key-policy-default-allow-root-enable-iam
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Id": "enable-iam-user-permissions",
-  "Statement": [
-    {
-      "Sid": "Enable IAM User Permissions",
-      "Effect": "Allow",
-      "Principal": {"AWS": "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"},
-      "Action": "kms:*",
-      "Resource": "*"
-    }
-  ]
-}
-EOF
-  # Let's use the maximum delete window in case we need to decrypt something after the key deletion is ordered
-  deletion_window_in_days = 30
-
-  tags = var.tags
-}
-
-# Defines the easy access name of the S3 bucket encryption key
-resource "aws_kms_alias" "main" {
-  name          = "alias/${local.resource_name}"
-  target_key_id = aws_kms_key.main.key_id
-
-  depends_on = [
-    aws_kms_key.main
-  ]
+  aws_region_map = {
+    "af-south-1"     = "afs1"
+    "ap-northeast-1" = "apn1"
+    "ap-northeast-2" = "apn2"
+    "ap-south-1"     = "aps1"
+    "ap-southeast-1" = "ape1"
+    "ap-southeast-2" = "ape2"
+    "ca-central-1"   = "cac1"
+    "eu-central-1"   = "euc1"
+    "eu-west-1"      = "euw1"
+    "eu-west-2"      = "euw2"
+    "eu-west-3"      = "euw3"
+    "me-south-1"     = "mes1"
+    "sa-east-1"      = "sae1"
+    "us-east-1"      = "use1"
+    "us-east-2"      = "use2"
+    "us-west-1"      = "usw1"
+    "us-west-2"      = "usw2"
+  }
+  resource_name = "${local.aws_region_map[var.region]}-${var.name_prefix}-site-${var.name}"
 }
 
 ################################################################################
@@ -54,7 +29,7 @@ resource "aws_kms_alias" "main" {
 
 module "s3" {
   source  = "terraform-aws-modules/s3-bucket/aws"
-  version = "3.6.0"
+  version = "4.2.2"
 
   bucket = local.resource_name
 
@@ -70,18 +45,14 @@ module "s3" {
 
   server_side_encryption_configuration = {
     rule = {
+      bucket_key_enabled = true
       apply_server_side_encryption_by_default = {
-        kms_master_key_id = aws_kms_key.main.arn
-        sse_algorithm     = "aws:kms"
+        sse_algorithm = "AES256"
       }
     }
   }
 
   tags = var.tags
-
-  depends_on = [
-    aws_kms_key.main
-  ]
 }
 
 ################################################################################
