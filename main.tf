@@ -56,24 +56,6 @@ module "s3" {
 }
 
 ################################################################################
-# DynamoDB Table
-################################################################################
-
-resource "aws_dynamodb_table" "main" {
-  name           = local.resource_name
-  read_capacity  = 1
-  write_capacity = 1
-  hash_key       = "LockID"
-
-  attribute {
-    name = "LockID"
-    type = "S"
-  }
-
-  tags = var.tags
-}
-
-################################################################################
 # Generate Terraform Backend config file
 ################################################################################
 
@@ -91,7 +73,6 @@ resource "local_file" "main" {
   file_permission = "0664"
 
   depends_on = [
-    aws_dynamodb_table.main,
     module.s3
   ]
 }
